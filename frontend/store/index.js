@@ -18,11 +18,11 @@ export const actions = {
         if (req.headers.cookie) {
             const parsed = cookieparser.parse(req.headers.cookie)
             try {
-                auth = JSON.parse(parsed.auth)
+                auth = parsed.auth
+                commit('setAuth', auth)
             } catch (err) {
                 // No valid cookie found
             }
         }
-        commit('setAuth', auth)
     }
 }

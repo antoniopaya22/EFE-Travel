@@ -1,27 +1,27 @@
 <template>
   <v-app dark class="trans">
     <v-content class="bgimg">
-      <nuxt />
+      <v-container class="fill-height">
+        <nuxt />
+      </v-container>
     </v-content>
-    <v-footer padless>
-    <v-col
-      class="text-center"
-      cols="12"
-    >
-      {{ new Date().getFullYear() }} — <strong>Antonio Payá González</strong>
-    </v-col>
-  </v-footer>
+    <Footer/>
   </v-app>
 </template>
 
 <script>
+import Footer from '~/components/Footer';
+
 export default {
-  layout: "empty"
+  layout: "empty",
+  components: {
+    Footer
+  }
 };
 </script>
 
 <style scoped>
-.trans{
+.trans {
   background-color: transparent;
 }
 

@@ -11,12 +11,14 @@
         Logout
       </button>
     </div>
-    <p v-else>
+    <div v-else>
+      <p>
       Please
       <NuxtLink to="/login">
         login
       </NuxtLink>.
     </p>
+    </div>
   </div>
 </template>
 
@@ -25,7 +27,6 @@ const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   layout: 'empty',
-  middleware: 'authenticated',
   methods: {
     logout () {
       Cookie.remove('auth')
