@@ -13,7 +13,7 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title><v-btn text small :href="item.href">{{ item.text }}</v-btn></v-list-item-title>
+              <v-list-item-title><v-btn text small><nuxt-link :to="item.href">{{ item.text }}</nuxt-link></v-btn></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -22,7 +22,7 @@
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="this.$store.state.auth"></v-app-bar-nav-icon>
-        <v-btn text large to="/">EFE-Forms</v-btn>
+        <nuxt-link to="/"><v-btn text large>EFE-Travel</v-btn></nuxt-link>
       </v-toolbar-title>
       <v-autocomplete
         v-model="select"
@@ -57,7 +57,7 @@
                 <v-icon>mdi-account-circle</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-btn text to="/perfil">Perfil</v-btn>
+                <nuxt-link to="/perfil"><v-btn text>Perfil</v-btn></nuxt-link>
               </v-list-item-content>
           </v-list-item>
 
