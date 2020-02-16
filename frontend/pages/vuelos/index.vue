@@ -1,20 +1,35 @@
 <template>
   <v-container>
-    <v-card class="mx-auto">
+    <v-card class="mx-auto" color="#363636">
       <v-row align="center" justify="center">
-        <v-col cols="12" md="8">
+        <v-col cols="12" md="5">
           <v-spacer></v-spacer>
           <v-autocomplete
-            v-model="select"
-            :loading="loading"
+            v-model="selectOrigen"
             :items="destinos"
-            :search-input.sync="search"
+            :search-input.sync="searchOrigen"
             append-icon="mdi-magnify"
             cache-items
             flat
             hide-no-data
             hide-details
-            label="Ej: Sillicon Valley"
+            label="Origen"
+            class="hidden-sm-and-down"
+            solo-inverted
+          ></v-autocomplete>
+        </v-col>
+        <v-col cols="12" md="5">
+          <v-spacer></v-spacer>
+          <v-autocomplete
+            v-model="selectDestino"
+            :items="destinos"
+            :search-input.sync="searchDestino"
+            append-icon="mdi-magnify"
+            cache-items
+            flat
+            hide-no-data
+            hide-details
+            label="Destino"
             class="hidden-sm-and-down"
             solo-inverted
           ></v-autocomplete>
@@ -92,9 +107,10 @@ const Cookie = process.client ? require("js-cookie") : undefined;
 export default {
   layout: "default",
   data: () => ({
-    loading: false,
-    search: null,
-    select: null, //Elemento seleccionado
+    searchOrigen: null,
+    selectOrigen: null, //Elemento seleccionado origen
+    searchDestino: null,
+    selectDestino: null, //Elemento seleccionado destino
     destinos: ["Madrid", "NewYork", "Osaka", "San Petesburgo"],
     personas: [1,2,3,4,5,6],
     selectPersona: 1,
@@ -105,7 +121,7 @@ export default {
   }),
   methods: {
     buscar() {
-      this.$router.push(`/vuelos/buscar?destino=${this.select}&entrada=${this.fechaEntrada}&salida=${this.fechaSalida}&personas=${this.selectPersona}`)
+      this.$router.push(`/vuelos/buscar?origen=${this.selectOrigen}&destino=${this.selectDestino}&entrada=${this.fechaEntrada}&salida=${this.fechaSalida}&personas=${this.selectPersona}`)
     }
   }
 };

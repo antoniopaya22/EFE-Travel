@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="mx-auto">
+    <v-card class="mx-auto" color="#363636">
       <v-row align="center" justify="center">
         <v-col cols="12" md="8">
           <v-spacer></v-spacer>
@@ -35,7 +35,7 @@
               <v-text-field
                 v-model="fechaEntrada"
                 label="Entrada"
-                prepend-icon="mdi-airplane-takeoff"
+                prepend-icon="mdi-bunk-bed"
                 readonly
                 v-on="on"
               ></v-text-field>
@@ -61,7 +61,7 @@
               <v-text-field
                 v-model="fechaSalida"
                 label="Salida"
-                prepend-icon="mdi-airplane-takeoff"
+                prepend-icon="mdi-bunk-bed"
                 readonly
                 v-on="on"
               ></v-text-field>
