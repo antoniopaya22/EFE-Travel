@@ -1,6 +1,8 @@
-language: python
+language: node_js
+sudo: false
+node_js:
+  - 8
 install:
-  - pip install -r requirements.txt
-# command to run tests
+  - npm install
 script:
-  - python server.py test
+  - npm test

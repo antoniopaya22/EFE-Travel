@@ -1,21 +1,28 @@
 ############################################################
-# Dockerfile Python - Flask
+# Dockerfile Node.js - Express
 ############################################################
-FROM python:3
+
+FROM node
 
 # Información de Metadata
 LABEL "com.antonioalfa22.apirest"="apirest"
 LABEL maintainer="antonioalfa22@gmail.com"
 LABEL version="1.0"
 
+
 # Crear directorio de trabajo
 RUN mkdir -p /opt/app
+
 WORKDIR /opt/app
+
+RUN npm install -g typescript ts-node
+
+# Copia la Aplicación
 COPY . .
 
-# Install requirements
-RUN pip install -r requirements.txt
+RUN npm install --quiet
 
 EXPOSE 5000
 
-CMD python server.py prod
+# Inicia la aplicación al iniciar al contenedor
+CMD npm run prod

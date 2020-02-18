@@ -81,7 +81,7 @@ export default {
   methods: {
     addUser() {
       this.$axios
-        .post("/api/user", {
+        .post("/api/users", {
           username: this.username,
           lastname: this.lastname,
           password: this.password

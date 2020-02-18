@@ -2,7 +2,7 @@
   <v-row align="center" justify="center">
     <v-col cols="12" lg="6" md="8" sm="12" xs="6">
       <v-card class="elevation-12">
-        <v-alert type="error" :message="error" v-if="error" dismissible>{{error}}</v-alert>
+        <v-alert type="error" :message="error" v-if="error">{{error}}</v-alert>
         <v-form @submit.prevent="login()">
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title>Iniciar sesión</v-toolbar-title>
@@ -57,7 +57,7 @@ export default {
   methods: {
     login() {
       this.$axios
-        .post("/api/login", {
+        .post("/login", {
           username: this.username,
           password: this.password
         })
@@ -68,7 +68,8 @@ export default {
           this.$router.push("/");
         })
         .catch(e => {
-          this.error = e.response.data.Error;
+          console.log(e.response.data)
+          this.error = e.response.data.error;
         });
     }
   }
