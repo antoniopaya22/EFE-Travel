@@ -48,7 +48,7 @@
     </v-card>
 
     <!-- FILA RESULTADOS -->
-    <v-row align="center" justify="center" v-for="vuelo in vuelos" :key="vuelo.id">
+    <v-row align="center" justify="center" v-for="vuelo in vuelos" :key="vuelo.origen">
       <v-col cols="12">
           <Vuelo :vuelo="vuelo" />
       </v-col>
@@ -93,15 +93,13 @@ export default {
       "Dic"
     ],
     valoresMeses: [423, 446, 675, 510, 590, 610, 760, 80, 190, 400, 300, 230],
-    vuelos: [
-      { id: "1", title: "Viaje 1" },
-      { id: "2", title: "Viaje 2" },
-      { id: "3", title: "Viaje 3" },
-      { id: "4", title: "Viaje 4" }
-    ]
+    vuelos: []
   }),
+  async created() {
+    let vuelosData = await (this.$axios.get('/api/vuelos', {headers: { Authorization: this.$store.state.auth }}));
+    this.vuelos = vuelosData.data;
+  },
   mounted() {
-    console.log(this.$route.query);
     this.personas = this.$route.query.personas;
     this.salida = this.$route.query.salida;
     this.entrada = this.$route.query.entrada;

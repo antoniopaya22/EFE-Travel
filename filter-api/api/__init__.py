@@ -15,6 +15,7 @@ def create_app(mode):
         # Imports Routes
         from .routes import auth_routes
         from .routes import user_routes
+        from .routes import vuelo_routes
 
         # Create tables for models
         db.create_all()
