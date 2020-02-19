@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj": {}
+    "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj": {
+    "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj",
+        "projectUniqueName": "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj",
         "projectName": "REST.Collector.Server",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Server\\obj\\",
+        "projectPath": "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Server\\REST.Collector.Server.csproj",
+        "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
+        "outputPath": "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,16 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.10.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
