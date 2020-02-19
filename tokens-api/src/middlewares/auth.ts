@@ -38,6 +38,20 @@ export class Auth {
         }
     }
 
+    public checkToken(req: Request, res: Response) {
+        try {
+            jwt.verify(req.headers.authorization, secret, function(err, decoded) {
+                if(err){
+                    res.status(403).send("Invalid authorization: "+err);
+                }else{
+                    res.status(200).send(req.headers.authorization);
+                }
+            });
+        } catch (err) {
+            res.status(403).send("Invalid authorization: "+err);
+        }
+    }
+
     public static createToken(username: string): string{
         const payload = {
             name: username
