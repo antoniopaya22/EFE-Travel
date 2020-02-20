@@ -35,12 +35,18 @@ namespace REST.Collector.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get([FromHeader] string authorization)
+        public ActionResult Get([FromHeader] string authorization, [FromQuery] string origin, [FromQuery] string destination, 
+            [FromQuery] string departureDate, [FromQuery] string returnDate, [FromQuery] string adults)
         {
-            if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
-                return Unauthorized("Token invalido");
-            return Ok(vuelosCollector.GetVuelos());
+            //if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
+              //  return Unauthorized("Token invalido");
+            if(returnDate != null && returnDate != "")
+                return Ok(vuelosCollector.GetVuelosIdaVuelta(origin, destination, departureDate, returnDate, adults));
+            else
+                return Ok(vuelosCollector.GetVuelosIda(origin, destination, departureDate, adults));
         }
+
+    
 
 
     }

@@ -6,3 +6,11 @@ D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\ob
 D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.AssemblyInfo.cs
 D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.dll
 D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.pdb
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\bin\Debug\netstandard2.0\REST.Collector.Client.deps.json
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\bin\Debug\netstandard2.0\REST.Collector.Client.dll
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\bin\Debug\netstandard2.0\REST.Collector.Client.pdb
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.csprojAssemblyReference.cache
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.AssemblyInfoInputs.cache
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.AssemblyInfo.cs
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.dll
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.pdb

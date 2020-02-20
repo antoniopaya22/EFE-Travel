@@ -30,9 +30,17 @@ namespace REST.Collector.Server.Adapters
             };
         }
 
-        public List<Vuelo> GetVuelos()
+        public List<Vuelo> GetVuelosIda(string origin, string destination, string departuredate, string adults)
         {
-            List<AmadeusVuelo> amadeusVuelos = amadeusEndPoint.GetVuelos();
+            List<AmadeusVuelo> amadeusVuelos = amadeusEndPoint.GetVuelosIda(origin, destination, departuredate, adults);
+            List<Vuelo> vuelos = new List<Vuelo>();
+            amadeusVuelos.ForEach(amv => vuelos.Add(amadeusVueloToVuelo(amv)));
+            return vuelos;
+        }
+
+        public List<Vuelo> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
+        {
+            List<AmadeusVuelo> amadeusVuelos = amadeusEndPoint.GetVuelosIdaVuelta(origin, destination, departuredate, returnDate, adults);
             List<Vuelo> vuelos = new List<Vuelo>();
             amadeusVuelos.ForEach(amv => vuelos.Add(amadeusVueloToVuelo(amv)));
             return vuelos;
