@@ -8,6 +8,7 @@ namespace SOAP.Collector.Server.Adapters
 {
     public interface IVuelosCollector
     {
-        List<Vuelo> GetVuelos();
+        List<Vuelo> GetVuelosIda(string origin, string destination, string departureDate, string adults);
+        List<Vuelo> GetVuelosIdaVuelta(string origin, string destination, string departureDate, string returnDate, string adults);
     }
 }

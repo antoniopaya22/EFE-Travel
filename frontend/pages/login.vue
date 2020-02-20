@@ -57,7 +57,7 @@ export default {
   methods: {
     login() {
       this.$axios
-        .post("/login", {
+        .post(process.env.TOKENS_URL + "/login", {
           username: this.username,
           password: this.password
         })

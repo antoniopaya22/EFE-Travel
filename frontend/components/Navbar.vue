@@ -36,6 +36,7 @@
         hide-details
         label="Busca un destino"
         class="hidden-sm-and-down"
+        dark
         solo-inverted
       ></v-autocomplete>
       <v-spacer></v-spacer>

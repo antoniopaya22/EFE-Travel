@@ -20,8 +20,8 @@ namespace REST.Collector.Server.Adapters
         {
             return new Vuelo
             {
-                Origen = "Madrid", // Llamar a get Locations
-                Destino = "Barcelona", // Llamar a get Locations
+                Origen = amv.DepartureCode, // Llamar a get Locations
+                Destino = amv.ArrivalCode, // Llamar a get Locations
                 FechaSalida = amv.DepartureTime,
                 FechaLlegada = amv.ArrivalTime,
                 Personas = amv.Persons,

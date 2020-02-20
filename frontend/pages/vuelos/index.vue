@@ -111,7 +111,7 @@ export default {
     selectOrigen: null, //Elemento seleccionado origen
     searchDestino: null,
     selectDestino: null, //Elemento seleccionado destino
-    destinos: ["Madrid", "NewYork", "Osaka", "San Petesburgo"],
+    destinos: ["MAD", "PAR", "Osaka", "San Petesburgo"],
     personas: [1,2,3,4,5,6],
     selectPersona: 1,
     menuEntrada: false,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -38,14 +39,13 @@ namespace REST.Collector.Server.Controllers
         public ActionResult Get([FromHeader] string authorization, [FromQuery] string origin, [FromQuery] string destination, 
             [FromQuery] string departureDate, [FromQuery] string returnDate, [FromQuery] string adults)
         {
-            //if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
-              //  return Unauthorized("Token invalido");
+            if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
+                return Unauthorized("Token invalido");
             if(returnDate != null && returnDate != "")
                 return Ok(vuelosCollector.GetVuelosIdaVuelta(origin, destination, departureDate, returnDate, adults));
             else
                 return Ok(vuelosCollector.GetVuelosIda(origin, destination, departureDate, adults));
         }
-
     
 
 

@@ -16,10 +16,14 @@ namespace SOAP.Collector.Server
     {
 
         [WebMethod]
-        public List<Vuelo> GetVuelos()
+        public List<Vuelo> GetVuelos(string origin, string destination, string departureDate,
+                string returnDate, string adults)
         {
             IVuelosCollector vuelosCollector = new AmadeusVuelosAdapter();
-            return vuelosCollector.GetVuelos();
+            if (returnDate != null && returnDate != "")
+                return vuelosCollector.GetVuelosIdaVuelta(origin, destination, departureDate, returnDate, adults);
+            else
+                return vuelosCollector.GetVuelosIda(origin, destination, departureDate, adults);
         }
     }
 }

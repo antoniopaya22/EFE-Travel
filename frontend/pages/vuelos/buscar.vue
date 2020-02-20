@@ -1,6 +1,5 @@
 <template>
   <v-container>
-
     <!-- FILA STEPPER -->
     <v-stepper value="1">
       <v-stepper-header>
@@ -16,8 +15,7 @@
       </v-stepper-header>
     </v-stepper>
 
-    <br>
-
+    <br />
 
     <!-- FILA GRAFICA -->
     <v-card class="mt-4 mx-auto" max-width="600px">
@@ -48,9 +46,9 @@
     </v-card>
 
     <!-- FILA RESULTADOS -->
-    <v-row align="center" justify="center" v-for="vuelo in vuelos" :key="vuelo.origen">
+    <v-row align="center" justify="center" v-for="vuelo in vuelos" :key="vuelo.fechaSalida+vuelo.fechaLlegada">
       <v-col cols="12">
-          <Vuelo :vuelo="vuelo" />
+        <Vuelo :vuelo="vuelo" />
       </v-col>
     </v-row>
   </v-container>
@@ -64,12 +62,12 @@
 </style>
 
 <script>
-import Vuelo from '~/components/Vuelo';
+import Vuelo from "~/components/Vuelo";
 
 const Cookie = process.client ? require("js-cookie") : undefined;
 
 export default {
-  layout: "default",
+  layout: "color",
   components: {
     Vuelo
   },
@@ -95,16 +93,26 @@ export default {
     valoresMeses: [423, 446, 675, 510, 590, 610, 760, 80, 190, 400, 300, 230],
     vuelos: []
   }),
-  async created() {
-    let vuelosData = await (this.$axios.get('/api/vuelos', {headers: { Authorization: this.$store.state.auth }}));
-    this.vuelos = vuelosData.data;
-  },
-  mounted() {
+  async mounted() {
     this.personas = this.$route.query.personas;
     this.salida = this.$route.query.salida;
     this.entrada = this.$route.query.entrada;
     this.origen = this.$route.query.origen;
     this.destino = this.$route.query.destino;
+    let vuelosData = await this.$axios.get(
+      process.env.REST_URL + `/api/vuelos`,
+      {
+        headers: { Authorization: this.$store.state.auth},
+        params: {
+          origin: this.origen,
+          destination: this.destino,
+          departureDate: this.entrada,
+          adults: this.personas
+        }
+      }
+    );
+    console.log(vuelosData.data[0])
+    this.vuelos = vuelosData.data;
   },
   methods: {}
 };

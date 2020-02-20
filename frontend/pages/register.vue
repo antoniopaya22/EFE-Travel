@@ -81,7 +81,7 @@ export default {
   methods: {
     addUser() {
       this.$axios
-        .post("/api/users", {
+        .post(process.env.TOKENS_URL + "/api/users", {
           username: this.username,
           lastname: this.lastname,
           password: this.password

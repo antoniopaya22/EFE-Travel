@@ -8,7 +8,7 @@
             <v-card-title>{{vuelo.origen}} - {{vuelo.destino}}</v-card-title>
           </v-img>
 
-          <v-card-subtitle class="pb-0">Salida {{vuelo.fecha_salida}} - Llegada {{vuelo.fecha_llegada}}</v-card-subtitle>
+          <v-card-subtitle class="pb-0">Salida {{vuelo.fechaSalida}} - Llegada {{vuelo.fechaLlegada}}</v-card-subtitle>
 
           <v-card-text class="text--primary">
             <div>Compañia: {{vuelo.aerolinea}}</div>

@@ -46,13 +46,6 @@ export default {
         '@nuxtjs/dotenv',
     ],
     /*
-     ** Axios module configuration
-     ** See https://axios.nuxtjs.org/options
-     */
-    axios: {
-        baseURL: 'http://localhost:5000'
-    },
-    /*
      ** vuetify module configuration
      ** https://github.com/nuxt-community/vuetify-module
      */
