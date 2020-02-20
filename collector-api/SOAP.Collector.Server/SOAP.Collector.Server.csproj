@@ -67,10 +67,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SoapCollector.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AmadeusVuelosAdapter.cs" />
+    <Compile Include="Adapters\IVuelosCollector.cs" />
+    <Compile Include="Model\Vuelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoapCollector.asmx.cs">
+      <DependentUpon>SoapCollector.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -80,6 +88,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\REST.Collector.Client\REST.Collector.Client.csproj">
+      <Project>{81ad6382-c3bd-4293-9732-b869f7c786e7}</Project>
+      <Name>REST.Collector.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -96,7 +110,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53160</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53160/</IISUrl>
+          <IISUrl>http://localhost:8060</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:8060</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
