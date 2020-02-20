@@ -39,7 +39,6 @@ namespace REST.Collector.Client
         public List<AmadeusVuelo> GetVuelosIda(string origin, string destination, string departuredate, string adults)
         {
             this.token = GetToken();
-            //cityCode=PAR&adults=1&radius=5&radiusUnit=KM&paymentPolicy=NONE&includeClosed=false&bestRateOnly=true&view=FULL&sort=PRICE
             var client = new RestClient(this.vueloEndPoint);
             var getRequest = new RestRequest(Method.GET);
             getRequest.RequestFormat = DataFormat.Json;
@@ -50,25 +49,11 @@ namespace REST.Collector.Client
             getRequest.AddHeader("Authorization", $"Bearer {this.token}");
             var response = client.Execute(getRequest);
             dynamic dy_vuelos = JsonConvert.DeserializeObject<dynamic>(response.Content);
-            //List<AmadeusVuelo> vuelos = dy_vuelos.data;
             List<AmadeusVuelo> vuelos = new List<AmadeusVuelo>();
             foreach (dynamic dyn_vuelo in dy_vuelos.data)
             {
-                //string jv = JsonConvert.SerializeObject(dv, Formatting.Indented);
-                //var v = JsonConvert.DeserializeObject<AmadeusVuelo>(jv);
                 dynamic iti = dyn_vuelo.itineraries;
                 dynamic iti1 = iti[0];
-                //AmadeusVuelo v = new AmadeusVuelo(iti1.segments[0]);
-                //vuelos.Add(v);
-                /*
-                if (iti1.segments.Count == 1)
-                {
-                    dynamic itinerary = iti1.segments[0];
-                    dynamic price = dyn_vuelo.
-                    AmadeusVuelo vuelo = new AmadeusVuelo();
-                    vuelos.Add(vuelo);
-                }
-                */
                 AmadeusVuelo vuelo = new AmadeusVuelo(dyn_vuelo, adults);
                 if (vuelo.Valid) vuelos.Add(vuelo);
             }
@@ -80,7 +65,6 @@ namespace REST.Collector.Client
         public List<AmadeusVuelo> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
         {
             this.token = GetToken();
-            //cityCode=PAR&adults=1&radius=5&radiusUnit=KM&paymentPolicy=NONE&includeClosed=false&bestRateOnly=true&view=FULL&sort=PRICE
             var client = new RestClient(this.vueloEndPoint);
             var getRequest = new RestRequest(Method.GET);
             getRequest.RequestFormat = DataFormat.Json;
@@ -92,7 +76,6 @@ namespace REST.Collector.Client
             getRequest.AddHeader("Authorization", $"Bearer {this.token}");
             var response = client.Execute(getRequest);
             dynamic dy_vuelos = JsonConvert.DeserializeObject<dynamic>(response.Content);
-            //List<AmadeusVuelo> vuelos = dy_vuelos.data;
             List<AmadeusVuelo> vuelos = new List<AmadeusVuelo>();
             foreach (dynamic dv in dy_vuelos.data)
             {
