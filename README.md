@@ -2,13 +2,15 @@
 
 ## Tabla de contenidos
 
-1. [Descripción del proyecto](#1-descripci%c3%b3n-del-proyecto)
-    1.1. [Subsistemas del proyecto](#11-subsistemas-del-proyecto)
-        1.1.1. [Collector-API](#111-collector-api)
-        1.1.2. [Recommendations-API](#112-recommendations-api)
-        1.1.3. [Tokens-API](#113-tokens-api)
-        1.1.4. [Frontend](#114-frontend)
-2. [Instalación y despliegue](#2-instalaci%c3%b3n-y-despliegue)
+- [EFE-Travel](#efe-travel)
+  - [Tabla de contenidos](#tabla-de-contenidos)
+  - [1. Descripción del proyecto](#1-descripci%c3%b3n-del-proyecto)
+    - [1.1. Subsistemas del proyecto](#11-subsistemas-del-proyecto)
+      - [1.1.1. Collector API](#111-collector-api)
+      - [1.1.2. Recommendations-API](#112-recommendations-api)
+      - [1.1.3. Tokens-API](#113-tokens-api)
+      - [1.1.4. Frontend](#114-frontend)
+  - [2. Instalación y despliegue](#2-instalaci%c3%b3n-y-despliegue)
 
 ## 1. Descripción del proyecto
 
@@ -60,4 +62,4 @@ Este subsistema es el encargado de mostrar al usuario una interfaz gráfica por 
 Este proyecto está realizado con VueJS, NuxtJS y Vuetify.
 
 
-### 2. Instalación y despliegue
+## 2. Instalación y despliegue
