@@ -9,13 +9,10 @@ namespace REST.Collector.Server.Model
     {
         public string Origen { get; set; }
         public string Destino { get; set; }
-        public DateTime FechaSalidaIda { get; set; }
-        public DateTime FechaLlegadaIda { get; set; }
-        public DateTime FechaSalidaVuelta { get; set; }
-        public DateTime FechaLlegadaVuelta { get; set; }
+        public string FechaSalida { get; set; }
+        public string FechaLlegada { get; set; }
         public int Personas { get; set; }
         public double Precio { get; set; }
         public string Aerolinea { get; set; }
-        public string Enlace { get; set; }
     }
 }

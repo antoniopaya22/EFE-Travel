@@ -9,5 +9,9 @@
     <PackageReference Include="RestSharp" Version="106.10.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\REST.Collector.Client\REST.Collector.Client.csproj" />
+  </ItemGroup>
+
 
 </Project>

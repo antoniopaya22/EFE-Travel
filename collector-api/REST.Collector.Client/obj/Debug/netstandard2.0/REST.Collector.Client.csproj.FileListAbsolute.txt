@@ -1,0 +1,8 @@
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\bin\Debug\netstandard2.0\REST.Collector.Client.deps.json
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\bin\Debug\netstandard2.0\REST.Collector.Client.dll
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\bin\Debug\netstandard2.0\REST.Collector.Client.pdb
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.csprojAssemblyReference.cache
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.AssemblyInfoInputs.cache
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.AssemblyInfo.cs
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.dll
+D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\REST.Collector.Client\obj\Debug\netstandard2.0\REST.Collector.Client.pdb

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using REST.Collector.Server.Adapters;
 using REST.Collector.Server.Model;
 using RestSharp;
 
@@ -15,44 +16,13 @@ namespace REST.Collector.Server.Controllers
     public class VuelosController : ControllerBase
     {
         private IConfiguration _configuration;
+        private AmadeusVuelosAdapter vuelosCollector;
 
-        public static IList<Vuelo> database = new List<Vuelo>(new[]
-        {
-            new Vuelo { 
-                Origen = "Madrid",
-                Destino = "Barcelona",
-                FechaSalidaIda = new DateTime(),
-                FechaLlegadaIda = new DateTime(),
-                Personas = 2,
-                Precio = 22.5,
-                Aerolinea = "Ryanair",
-                Enlace = ""
-            },
-            new Vuelo {
-                Origen = "Madrid",
-                Destino = "Asturias",
-                FechaSalidaIda = new DateTime(),
-                FechaLlegadaIda = new DateTime(),
-                Personas = 2,
-                Precio = 82.5,
-                Aerolinea = "Vueling",
-                Enlace = ""
-            },
-            new Vuelo {
-                Origen = "Madrid",
-                Destino = "Venecia",
-                FechaSalidaIda = new DateTime(),
-                FechaLlegadaIda = new DateTime(),
-                Personas = 2,
-                Precio = 132.0,
-                Aerolinea = "AirEuropa",
-                Enlace = ""
-            }
-        });
 
         public VuelosController(IConfiguration configuration)
         {
             this._configuration = configuration;
+            this.vuelosCollector = new AmadeusVuelosAdapter();
         }
 
         private bool validateToken(string token)
@@ -61,9 +31,7 @@ namespace REST.Collector.Server.Controllers
             var getRequest = new RestRequest("/verify-token", Method.GET);
             getRequest.AddHeader("Authorization", token);
             var response = client.Execute(getRequest);
-            if(response.IsSuccessful)
-                return true;
-            return false;
+            return response.IsSuccessful;
         }
 
         [HttpGet]
@@ -71,7 +39,7 @@ namespace REST.Collector.Server.Controllers
         {
             if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
                 return Unauthorized("Token invalido");
-            return Ok(database);
+            return Ok(vuelosCollector.GetVuelos());
         }
 
 
