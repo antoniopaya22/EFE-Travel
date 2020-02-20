@@ -1,12 +1,15 @@
 import { Auth } from '../middlewares/auth';
 import { Vuelo } from "../models/vuelo";
+import { RecommendationsController } from '../controllers/recommmendations-controller';
 
 export class Routes {
 
     public auth: Auth = new Auth();
+    public recommendationsController: RecommendationsController = new RecommendationsController();
 
     public routes(app): void {
 
+        app.route('/api/testsoap').get(this.recommendationsController.testSOAP)
         // ========= VUELOS =========       
         app.route('/api/vuelos')
             .get(this.auth.isAuth, (req, res) => {

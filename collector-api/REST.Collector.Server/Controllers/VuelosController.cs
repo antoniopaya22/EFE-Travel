@@ -16,7 +16,7 @@ namespace REST.Collector.Server.Controllers
     public class VuelosController : ControllerBase
     {
         private IConfiguration _configuration;
-        private AmadeusVuelosAdapter vuelosCollector;
+        private IVuelosCollector vuelosCollector;
 
 
         public VuelosController(IConfiguration configuration)
