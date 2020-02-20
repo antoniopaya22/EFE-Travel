@@ -27,6 +27,7 @@
         "reflect-metadata": "^0.1.13",
         "request": "^2.88.2",
         "request-promise": "^4.2.5",
+        "soap": "^0.30.0",
         "typescript": "^3.7.4"
     },
     "devDependencies": {
