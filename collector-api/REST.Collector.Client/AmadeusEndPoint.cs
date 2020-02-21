@@ -53,16 +53,18 @@ namespace REST.Collector.Client
             foreach (dynamic dyn_vuelo in dy_vuelos.data)
             {
                 dynamic iti = dyn_vuelo.itineraries;
-                dynamic iti1 = iti[0];
-                AmadeusVuelo vuelo = new AmadeusVuelo(dyn_vuelo, adults);
-                if (vuelo.Valid) vuelos.Add(vuelo);
+                dynamic ida = iti[0];
+                if (ida.size() == 1)
+                {
+                    AmadeusVuelo vuelo = new AmadeusVuelo(iti.price, iti.numberOfBookableSeats, ida, adults);
+                    vuelos.Add(vuelo);
+                }
             }
-            if (response.IsSuccessful)
-                return vuelos;
-            return null; // COntrolar excepcion ??
+ 
+            return vuelos; 
         }
 
-        public List<AmadeusVuelo> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
+        public List<List<AmadeusVuelo>> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
         {
             this.token = GetToken();
             var client = new RestClient(this.vueloEndPoint);
@@ -76,22 +78,24 @@ namespace REST.Collector.Client
             getRequest.AddHeader("Authorization", $"Bearer {this.token}");
             var response = client.Execute(getRequest);
             dynamic dy_vuelos = JsonConvert.DeserializeObject<dynamic>(response.Content);
-            List<AmadeusVuelo> vuelos = new List<AmadeusVuelo>();
-            foreach (dynamic dv in dy_vuelos.data)
+            List<List<AmadeusVuelo>> vuelos = new List<List<AmadeusVuelo>>();
+            foreach (dynamic dyn_vuelo in dy_vuelos.data)
             {
 
-                dynamic iti = dv.itineraries;
-                dynamic iti1 = iti[0];
-                if (iti1.size() == 1)
+                dynamic iti = dyn_vuelo.itineraries;
+                dynamic ida = iti[0];
+                dynamic vuelta = iti[1];
+                if (ida.size() == 1 && vuelta.size() == 1)
                 {
-                    AmadeusVuelo v = new AmadeusVuelo(iti, adults);
-                    vuelos.Add(v);
+                    List<AmadeusVuelo> ida_vuelta = new List<AmadeusVuelo>();
+                    AmadeusVuelo vuelo_ida = new AmadeusVuelo(iti.price, iti.numberOfBookableSeats, ida, adults);
+                    AmadeusVuelo vuelo_vuelta = new AmadeusVuelo(iti.price, iti.numberOfBookableSeats, vuelta, adults);
+                    ida_vuelta.Add(vuelo_ida);
+                    ida_vuelta.Add(vuelo_vuelta);
+                    vuelos.Add(ida_vuelta);
                 }
-
             }
-            if (response.IsSuccessful)
-                return vuelos;
-            return null; // COntrolar excepcion ??
+            return vuelos;
         }
     }
 }

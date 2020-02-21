@@ -17,31 +17,22 @@ namespace REST.Collector.Client.Model
         public int Persons { get; set; }
         public int BookableSeats { get; set; }
         public string AirlineCode { get; set; }
-        public bool Valid { get; set; }
 
-        public AmadeusVuelo(dynamic flight, string adults)
+        public AmadeusVuelo(dynamic price, dynamic numberOfBookableSeats, dynamic flight, string adults)
         {
-            dynamic iti = flight.itineraries;
-            dynamic iti1 = iti[0];
-            if (iti1.segments.Count == 1)
-            {
-                dynamic itinerary = iti1.segments[0];
-                this.Price = (double)flight.price.total;
+            dynamic itinerary = flight.segments[0];
+            this.Price = (double)price.total;
 
                 
-                this.DepartureCode = itinerary.departure.iataCode;
-                this.ArrivalCode = itinerary.arrival.iataCode;
-                this.DepartureTerminal = itinerary.departure.terminal;
-                this.ArrivalTerminal = itinerary.arrival.terminal;
-                this.DepartureTime = itinerary.departure.at;
-                this.ArrivalTime = itinerary.arrival.at;
-                this.Persons = Convert.ToInt32(adults);
-                this.BookableSeats = (int)flight.numberOfBookableSeats;
-                this.AirlineCode = itinerary.carrierCode;
-                this.Valid = true;
-            }
-            
-            
+            this.DepartureCode = itinerary.departure.iataCode;
+            this.ArrivalCode = itinerary.arrival.iataCode;
+            this.DepartureTerminal = itinerary.departure.terminal;
+            this.ArrivalTerminal = itinerary.arrival.terminal;
+            this.DepartureTime = itinerary.departure.at;
+            this.ArrivalTime = itinerary.arrival.at;
+            this.Persons = Convert.ToInt32(adults);
+            this.BookableSeats = (int)numberOfBookableSeats;
+            this.AirlineCode = itinerary.carrierCode;
         }
     }
 }

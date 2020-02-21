@@ -38,11 +38,18 @@ namespace REST.Collector.Server.Adapters
             return vuelos;
         }
 
-        public List<Vuelo> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
+        public List<List<Vuelo>> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
         {
-            List<AmadeusVuelo> amadeusVuelos = amadeusEndPoint.GetVuelosIdaVuelta(origin, destination, departuredate, returnDate, adults);
-            List<Vuelo> vuelos = new List<Vuelo>();
-            amadeusVuelos.ForEach(amv => vuelos.Add(amadeusVueloToVuelo(amv)));
+            List<List<AmadeusVuelo>> amadeusVuelos = amadeusEndPoint.GetVuelosIdaVuelta(origin, destination, departuredate, returnDate, adults);
+            List<List<Vuelo>> vuelos = new List<List<Vuelo>>();
+            List<Vuelo> ida_vuelta = new List<Vuelo>();
+            amadeusVuelos.ForEach(amv_ida_vuelta =>
+            {
+                ida_vuelta.Add(amadeusVueloToVuelo(amv_ida_vuelta[0]));
+                ida_vuelta.Add(amadeusVueloToVuelo(amv_ida_vuelta[1]));
+                vuelos.Add(ida_vuelta);
+            } 
+            );
             return vuelos;
         }
     }
