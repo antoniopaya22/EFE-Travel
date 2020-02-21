@@ -33,12 +33,14 @@ namespace REST.Collector.Server.Controllers
             return response.IsSuccessful;
         }
 
+        /*
         [HttpGet("{code}")]
         public ActionResult GetLocation([FromHeader] string authorization, [FromRoute] string code)
         {
-            //if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
-              //  return Unauthorized("Token invalido");
+            if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
+                return Unauthorized("Token invalido");
             return Ok(locationsCollector.GetLocation(code));
         }
+        */
     }
 }

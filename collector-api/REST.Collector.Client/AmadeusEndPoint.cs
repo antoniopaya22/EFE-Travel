@@ -15,9 +15,11 @@ namespace REST.Collector.Client
         string hotelEndPoint = "https://test.api.amadeus.com/v2/shopping/hotel-offers";
         string vueloEndPoint = "https://test.api.amadeus.com/v2/shopping/flight-offers";
         string locationsEndPoint = "https://test.api.amadeus.com/v1/reference-data/locations";
+        string airlineEndPoint = "https://test.api.amadeus.com/v1/reference-data/airlines";
         string tokenEndPoint = "https://test.api.amadeus.com/v1/security/oauth2/token";
         private string token { set; get; }
         Dictionary<string, string> locations = new Dictionary<string, string>();
+        Dictionary<string, string> airlines = new Dictionary<string, string>();
 
         public AmadeusEndPoint()
         {
@@ -41,6 +43,8 @@ namespace REST.Collector.Client
         }
         public List<AmadeusVuelo> GetVuelosIda(string origin, string destination, string departuredate, string adults)
         {
+            locations = new Dictionary<string, string>();
+            airlines = new Dictionary<string, string>();
             this.token = GetToken();
             var client = new RestClient(this.vueloEndPoint);
             var getRequest = new RestRequest(Method.GET);
@@ -63,6 +67,7 @@ namespace REST.Collector.Client
                 {
                     ida.departureName = GetLocation("A" + ida.segments[0].departure.iataCode.ToString());
                     ida.arrivalName = GetLocation("A" + ida.segments[0].arrival.iataCode.ToString());
+                    ida.carrierName = GetAirline(ida.segments[0].carrierCode.ToString());
                     AmadeusVuelo vuelo = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, ida, adults);
                     vuelos.Add(vuelo);
                 }
@@ -73,6 +78,8 @@ namespace REST.Collector.Client
 
         public List<List<AmadeusVuelo>> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
         {
+            locations = new Dictionary<string, string>();
+            airlines = new Dictionary<string, string>();
             this.token = GetToken();
             var client = new RestClient(this.vueloEndPoint);
             var getRequest = new RestRequest(Method.GET);
@@ -133,6 +140,29 @@ namespace REST.Collector.Client
             string name = location.data.name.ToString();
             if(!locations.ContainsKey(code))
                 locations.Add(code, name);
+            return name;
+        }
+
+        public string GetAirline(string code)
+        {
+            if (airlines.ContainsKey(code))
+                return airlines[code];
+            var client = new RestClient(this.airlineEndPoint);
+            var getRequest = new RestRequest( Method.GET);
+            getRequest.RequestFormat = DataFormat.Json;
+            getRequest.AddParameter("airlineCodes", code, ParameterType.QueryString);
+            getRequest.AddHeader("Authorization", $"Bearer {this.token}");
+            var response = client.Execute(getRequest);
+            dynamic airline = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            if (airline.errors != null)
+            {
+                if (!airlines.ContainsKey(code))
+                    airlines.Add(code, code);
+                return code;
+            }
+            string name = airline.data[0].businessName.ToString();
+            if (!airlines.ContainsKey(code))
+                airlines.Add(code, name);
             return name;
         }
     }

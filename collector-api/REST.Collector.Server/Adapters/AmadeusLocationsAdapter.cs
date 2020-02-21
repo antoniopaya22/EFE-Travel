@@ -14,9 +14,9 @@ namespace REST.Collector.Server.Adapters
             this.amadeusEndPoint = new AmadeusEndPoint();
         }
 
-        public string GetLocation(string code)
+        public List<string> GetLocations()
         {
-            return amadeusEndPoint.GetLocation(code);
+            return null;
         }
     }
 }

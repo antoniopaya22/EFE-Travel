@@ -32,7 +32,7 @@ namespace REST.Collector.Client.Model
             this.ArrivalTime = itinerary.arrival.at;
             this.Persons = Convert.ToInt32(adults);
             this.BookableSeats = (int)numberOfBookableSeats;
-            this.AirlineCode = itinerary.carrierCode;
+            this.AirlineCode = flight.carrierName;
         }
     }
 }
