@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj": {}
   },
   "projects": {
-    "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj",
         "projectName": "REST.Collector.Client",
-        "projectPath": "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj",
-        "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-        "outputPath": "D:\\MASTER\\ServiciosWeb\\Entrega\\EFE-Travel\\collector-api\\REST.Collector.Client\\obj\\",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Client\\REST.Collector.Client.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\trabajos\\master\\primero\\servicios_web\\ENTREGA\\EFE-Travel\\collector-api\\REST.Collector.Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -9,6 +9,6 @@ namespace REST.Collector.Server.Adapters
     interface IVuelosCollector
     {
         public List<Vuelo> GetVuelosIda(string origin, string destination, string departureDate, string adults);
-        public List<Vuelo> GetVuelosIdaVuelta(string origin, string destination, string departureDate, string returnDate, string adults);
+        public List<List<Vuelo>> GetVuelosIdaVuelta(string origin, string destination, string departureDate, string returnDate, string adults);
     }
 }
