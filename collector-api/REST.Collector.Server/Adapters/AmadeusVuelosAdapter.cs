@@ -48,6 +48,7 @@ namespace REST.Collector.Server.Adapters
                 ida_vuelta.Add(amadeusVueloToVuelo(amv_ida_vuelta[0]));
                 ida_vuelta.Add(amadeusVueloToVuelo(amv_ida_vuelta[1]));
                 vuelos.Add(ida_vuelta);
+                ida_vuelta = new List<Vuelo>();
             } 
             );
             return vuelos;

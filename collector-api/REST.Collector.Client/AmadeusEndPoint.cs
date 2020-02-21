@@ -5,6 +5,7 @@ using REST.Collector.Client.Model;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace REST.Collector.Client
@@ -50,13 +51,14 @@ namespace REST.Collector.Client
             var response = client.Execute(getRequest);
             dynamic dy_vuelos = JsonConvert.DeserializeObject<dynamic>(response.Content);
             List<AmadeusVuelo> vuelos = new List<AmadeusVuelo>();
+    
             foreach (dynamic dyn_vuelo in dy_vuelos.data)
             {
                 dynamic iti = dyn_vuelo.itineraries;
                 dynamic ida = iti[0];
-                if (ida.size() == 1)
+                if (ida.segments.Count == 1)
                 {
-                    AmadeusVuelo vuelo = new AmadeusVuelo(iti.price, iti.numberOfBookableSeats, ida, adults);
+                    AmadeusVuelo vuelo = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, ida, adults);
                     vuelos.Add(vuelo);
                 }
             }
@@ -79,20 +81,22 @@ namespace REST.Collector.Client
             var response = client.Execute(getRequest);
             dynamic dy_vuelos = JsonConvert.DeserializeObject<dynamic>(response.Content);
             List<List<AmadeusVuelo>> vuelos = new List<List<AmadeusVuelo>>();
+            List<AmadeusVuelo> ida_vuelta = new List<AmadeusVuelo>();
             foreach (dynamic dyn_vuelo in dy_vuelos.data)
             {
 
                 dynamic iti = dyn_vuelo.itineraries;
                 dynamic ida = iti[0];
                 dynamic vuelta = iti[1];
-                if (ida.size() == 1 && vuelta.size() == 1)
+                if (ida.segments.Count == 1 && vuelta.segments.Count == 1)
                 {
-                    List<AmadeusVuelo> ida_vuelta = new List<AmadeusVuelo>();
-                    AmadeusVuelo vuelo_ida = new AmadeusVuelo(iti.price, iti.numberOfBookableSeats, ida, adults);
-                    AmadeusVuelo vuelo_vuelta = new AmadeusVuelo(iti.price, iti.numberOfBookableSeats, vuelta, adults);
+                    
+                    AmadeusVuelo vuelo_ida = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, ida, adults);
+                    AmadeusVuelo vuelo_vuelta = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, vuelta, adults);
                     ida_vuelta.Add(vuelo_ida);
                     ida_vuelta.Add(vuelo_vuelta);
                     vuelos.Add(ida_vuelta);
+                    ida_vuelta = new List<AmadeusVuelo>();
                 }
             }
             return vuelos;

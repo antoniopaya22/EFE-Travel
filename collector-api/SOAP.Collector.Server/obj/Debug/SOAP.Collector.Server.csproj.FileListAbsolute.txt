@@ -58,3 +58,6 @@ D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\SOAP.Collector.Server\ob
 D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\SOAP.Collector.Server\obj\Debug\SOAP.Collector.Server.csproj.CopyComplete
 D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\SOAP.Collector.Server\obj\Debug\SOAP.Collector.Server.dll
 D:\MASTER\ServiciosWeb\Entrega\EFE-Travel\collector-api\SOAP.Collector.Server\obj\Debug\SOAP.Collector.Server.pdb
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\SOAP.Collector.Server\obj\Debug\SOAP.Collector.Server.csprojAssemblyReference.cache
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\SOAP.Collector.Server\obj\Debug\SOAP.Collector.Server.dll
+C:\Users\Usuario\Desktop\trabajos\master\primero\servicios_web\ENTREGA\EFE-Travel\collector-api\SOAP.Collector.Server\obj\Debug\SOAP.Collector.Server.pdb
