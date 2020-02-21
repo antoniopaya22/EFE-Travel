@@ -165,5 +165,25 @@ namespace REST.Collector.Client
                 airlines.Add(code, name);
             return name;
         }
+
+        public List<AmadeusLocation> GetLocations(string keyword)
+        {
+            this.token = GetToken();
+            var client = new RestClient(this.locationsEndPoint);
+            var getRequest = new RestRequest(Method.GET);
+            getRequest.RequestFormat = DataFormat.Json;
+            getRequest.AddParameter("subType", "CITY", ParameterType.QueryString);
+            getRequest.AddParameter("keyword", keyword, ParameterType.QueryString);
+            getRequest.AddHeader("Authorization", $"Bearer {this.token}");
+            var response = client.Execute(getRequest);
+            dynamic dy_locations = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            List<AmadeusLocation> locations = new List<AmadeusLocation>();
+            foreach (dynamic dyn_location in dy_locations.data)
+            {
+                AmadeusLocation loc = new AmadeusLocation(dyn_location.address);
+                locations.Add(loc);
+            }
+            return locations;
+        }
     }
 }

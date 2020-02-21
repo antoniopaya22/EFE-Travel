@@ -42,5 +42,13 @@ namespace REST.Collector.Server.Controllers
             return Ok(locationsCollector.GetLocation(code));
         }
         */
+
+        [HttpGet]
+        public ActionResult GetLocations([FromHeader] string authorization, [FromQuery] string keyword)
+        {
+            //if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
+              //  return Unauthorized("Token invalido");
+            return Ok(locationsCollector.GetLocations(keyword));
+        }
     }
 }
