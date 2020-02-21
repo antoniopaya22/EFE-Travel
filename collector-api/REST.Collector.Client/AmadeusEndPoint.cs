@@ -14,8 +14,10 @@ namespace REST.Collector.Client
     {
         string hotelEndPoint = "https://test.api.amadeus.com/v2/shopping/hotel-offers";
         string vueloEndPoint = "https://test.api.amadeus.com/v2/shopping/flight-offers";
+        string locationsEndPoint = "https://test.api.amadeus.com/v1/reference-data/locations";
         string tokenEndPoint = "https://test.api.amadeus.com/v1/security/oauth2/token";
         private string token { set; get; }
+        Dictionary<string, string> locations = new Dictionary<string, string>();
 
         public AmadeusEndPoint()
         {
@@ -51,13 +53,16 @@ namespace REST.Collector.Client
             var response = client.Execute(getRequest);
             dynamic dy_vuelos = JsonConvert.DeserializeObject<dynamic>(response.Content);
             List<AmadeusVuelo> vuelos = new List<AmadeusVuelo>();
-    
+            dynamic iti = null;
+            dynamic ida = null;
             foreach (dynamic dyn_vuelo in dy_vuelos.data)
             {
-                dynamic iti = dyn_vuelo.itineraries;
-                dynamic ida = iti[0];
+                iti = dyn_vuelo.itineraries;
+                ida = iti[0];
                 if (ida.segments.Count == 1)
                 {
+                    ida.departureName = GetLocation("A" + ida.segments[0].departure.iataCode.ToString());
+                    ida.arrivalName = GetLocation("A" + ida.segments[0].arrival.iataCode.ToString());
                     AmadeusVuelo vuelo = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, ida, adults);
                     vuelos.Add(vuelo);
                 }
@@ -82,15 +87,20 @@ namespace REST.Collector.Client
             dynamic dy_vuelos = JsonConvert.DeserializeObject<dynamic>(response.Content);
             List<List<AmadeusVuelo>> vuelos = new List<List<AmadeusVuelo>>();
             List<AmadeusVuelo> ida_vuelta = new List<AmadeusVuelo>();
+            dynamic iti = null;
+            dynamic ida = null;
+            dynamic vuelta = null;
             foreach (dynamic dyn_vuelo in dy_vuelos.data)
             {
-
-                dynamic iti = dyn_vuelo.itineraries;
-                dynamic ida = iti[0];
-                dynamic vuelta = iti[1];
+                iti = dyn_vuelo.itineraries;
+                ida = iti[0];
+                vuelta = iti[1];
                 if (ida.segments.Count == 1 && vuelta.segments.Count == 1)
                 {
-                    
+                    ida.departureName = GetLocation("A" + ida.segments[0].departure.iataCode.ToString());
+                    vuelta.departureName = GetLocation("A" + vuelta.segments[0].departure.iataCode.ToString());
+                    ida.arrivalName = GetLocation("A" + ida.segments[0].arrival.iataCode.ToString());
+                    vuelta.arrivalName = GetLocation("A" + vuelta.segments[0].arrival.iataCode.ToString());
                     AmadeusVuelo vuelo_ida = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, ida, adults);
                     AmadeusVuelo vuelo_vuelta = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, vuelta, adults);
                     ida_vuelta.Add(vuelo_ida);
@@ -100,6 +110,30 @@ namespace REST.Collector.Client
                 }
             }
             return vuelos;
+        }
+
+        public string GetLocation(string code)
+        {
+            //this.token = GetToken();
+            if (locations.ContainsKey(code))
+                return locations[code];
+            var client = new RestClient(this.locationsEndPoint);
+            var getRequest = new RestRequest("/{code}", Method.GET);
+            getRequest.RequestFormat = DataFormat.Json;
+            getRequest.AddParameter("code",code, ParameterType.UrlSegment);
+            getRequest.AddHeader("Authorization", $"Bearer {this.token}");
+            var response = client.Execute(getRequest);
+            dynamic location = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            if(location.errors != null)
+            {
+                if (!locations.ContainsKey(code))
+                    locations.Add(code, code);
+                return code;
+            }
+            string name = location.data.name.ToString();
+            if(!locations.ContainsKey(code))
+                locations.Add(code, name);
+            return name;
         }
     }
 }

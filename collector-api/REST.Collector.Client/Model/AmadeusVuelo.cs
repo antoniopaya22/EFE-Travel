@@ -24,8 +24,8 @@ namespace REST.Collector.Client.Model
             this.Price = (double)price.total;
 
                 
-            this.DepartureCode = itinerary.departure.iataCode;
-            this.ArrivalCode = itinerary.arrival.iataCode;
+            this.DepartureCode = flight.departureName;
+            this.ArrivalCode = flight.arrivalName;
             this.DepartureTerminal = itinerary.departure.terminal;
             this.ArrivalTerminal = itinerary.arrival.terminal;
             this.DepartureTime = itinerary.departure.at;
