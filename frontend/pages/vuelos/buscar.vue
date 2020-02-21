@@ -17,36 +17,16 @@
 
     <br />
 
-    <!-- FILA GRAFICA -->
-    <v-card class="mt-4 mx-auto" max-width="600px">
-      <v-sheet
-        class="v-sheet--offset mx-auto"
-        color="#363636"
-        elevation="12"
-        max-width="calc(100% - 32px)"
-      >
-        <v-sparkline
-          :labels="meses"
-          :value="valoresMeses"
-          :gradient="['#f72047', '#ffd200', '#1feaea']"
-          line-width="2"
-          padding="16"
-        ></v-sparkline>
-      </v-sheet>
-
-      <v-card-text class="pt-0">
-        <div class="title font-weight-light mb-2">Precio de los vuelos para {{this.destino}}</div>
-        <div
-          class="subheading font-weight-light grey--text"
-        >Los precios mostrados en la gráfica son únicamente de las compañías con las que trabaja EFE-Travel.</div>
-        <v-divider class="my-2"></v-divider>
-        <v-icon class="mr-2" small>mdi-clock</v-icon>
-        <span class="caption grey--text font-weight-light">Actualizado ahora</span>
-      </v-card-text>
-    </v-card>
-
     <!-- FILA RESULTADOS -->
-    <v-row align="center" justify="center" v-for="vuelo in vuelos" :key="vuelo.fechaSalida+vuelo.fechaLlegada">
+    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="px-3 pt-3 pb-3" v-show="loading">
+      <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
+    </v-sheet>
+    <v-row
+      align="center"
+      justify="center"
+      v-for="vuelo in vuelos"
+      :key="vuelo.fechaSalida+vuelo.fechaLlegada"
+    >
       <v-col cols="12">
         <Vuelo :vuelo="vuelo" />
       </v-col>
@@ -68,14 +48,12 @@ const Cookie = process.client ? require("js-cookie") : undefined;
 
 export default {
   layout: "color",
+  inject: ['theme'],
   components: {
     Vuelo
   },
   data: () => ({
-    destino: null,
-    entrada: null,
-    salida: null,
-    personas: null,
+    loading: true,
     meses: [
       "Ene",
       "Feb",
@@ -94,25 +72,21 @@ export default {
     vuelos: []
   }),
   async mounted() {
-    this.personas = this.$route.query.personas;
-    this.salida = this.$route.query.salida;
-    this.entrada = this.$route.query.entrada;
-    this.origen = this.$route.query.origen;
-    this.destino = this.$route.query.destino;
     let vuelosData = await this.$axios.get(
       process.env.REST_URL + `/api/vuelos`,
       {
-        headers: { Authorization: this.$store.state.auth},
+        headers: { Authorization: this.$store.state.auth },
         params: {
-          origin: this.origen,
-          destination: this.destino,
-          departureDate: this.entrada,
-          adults: this.personas
+          origen: this.$route.query.origen,
+          destino: this.$route.query.destino,
+          fechaEntrada: this.$route.query.entrada,
+          fechaSalida: this.$route.query.salida,
+          personas: this.$route.query.personas
         }
       }
     );
-    console.log(vuelosData.data[0])
     this.vuelos = vuelosData.data;
+    this.loading = false;
   },
   methods: {}
 };
