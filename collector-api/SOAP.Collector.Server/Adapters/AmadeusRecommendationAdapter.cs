@@ -1,14 +1,14 @@
 ﻿using REST.Collector.Client;
 using REST.Collector.Client.Model;
-using REST.Collector.Server.Model;
+using SOAP.Collector.Server.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace REST.Collector.Server.Adapters
-{
-    public class AmadeusRecommendationAdapter : IRecommendationsCollector
+namespace SOAP.Collector.Server.Adapters
+{ 
+    class AmadeusRecommendationAdapter : IRecommendationsCollector
     {
         private AmadeusEndPoint amadeusEndPoint;
         public AmadeusRecommendationAdapter()

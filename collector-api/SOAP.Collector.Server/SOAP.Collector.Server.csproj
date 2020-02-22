@@ -71,8 +71,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\AmadeusRecommendationAdapter.cs" />
     <Compile Include="Adapters\AmadeusVuelosAdapter.cs" />
+    <Compile Include="Adapters\IRecommendationsCollector.cs" />
     <Compile Include="Adapters\IVuelosCollector.cs" />
+    <Compile Include="Model\Recommendation.cs" />
     <Compile Include="Model\Vuelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoapCollector.asmx.cs">
