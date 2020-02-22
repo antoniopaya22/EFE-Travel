@@ -185,5 +185,25 @@ namespace REST.Collector.Client
             }
             return locations;
         }
+
+        public List<AmadeusHotel> GetHotels(string cityCode, string adults)
+        {
+            this.token = GetToken();
+            var client = new RestClient(this.hotelEndPoint);
+            var getRequest = new RestRequest(Method.GET);
+            getRequest.RequestFormat = DataFormat.Json;
+            getRequest.AddParameter("cityCode", cityCode, ParameterType.QueryString);
+            getRequest.AddParameter("adults", adults, ParameterType.QueryString);
+            getRequest.AddHeader("Authorization", $"Bearer {this.token}");
+            var response = client.Execute(getRequest);
+            dynamic dy_hotels = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            List<AmadeusHotel> hotels = new List<AmadeusHotel>();
+            foreach (dynamic dyn_hotel in dy_hotels.data)
+            {
+                AmadeusHotel hot = new AmadeusHotel(dyn_hotel);
+                hotels.Add(hot);
+            }
+            return hotels;
+        }
     }
 }

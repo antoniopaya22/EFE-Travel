@@ -2,28 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using REST.Collector.Server.Adapters;
-using REST.Collector.Server.Model;
 using RestSharp;
 
 namespace REST.Collector.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VuelosController : ControllerBase
+    public class HotelesController : ControllerBase
     {
         private IConfiguration _configuration;
-        private IVuelosCollector vuelosCollector;
+        private IHotelesCollector hotelesCollector;
 
 
-        public VuelosController(IConfiguration configuration)
+        public HotelesController(IConfiguration configuration)
         {
             this._configuration = configuration;
-            this.vuelosCollector = new AmadeusVuelosAdapter();
+            this.hotelesCollector = new AmadeusHotelesAdapter();
         }
 
         private bool validateToken(string token)
@@ -36,16 +34,14 @@ namespace REST.Collector.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get([FromHeader] string authorization, [FromQuery] string origen, [FromQuery] string destino, 
+        public ActionResult Get([FromHeader] string authorization, [FromQuery] string ciudad, 
             [FromQuery] string fechaSalida, [FromQuery] string fechaLlegada, [FromQuery] string personas)
         {
+            
             if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
-               return Unauthorized("Token invalido");
-            if(fechaLlegada != null && fechaLlegada != "")
-                return Ok(vuelosCollector.GetVuelosIdaVuelta(origen, destino, fechaSalida, fechaLlegada, personas));
-            else
-                return Ok(vuelosCollector.GetVuelosIda(origen, destino, fechaSalida, personas));
+              return Unauthorized("Token invalido");
+           
+            return Ok(hotelesCollector.GetHoteles(ciudad, personas));
         }
-
     }
 }

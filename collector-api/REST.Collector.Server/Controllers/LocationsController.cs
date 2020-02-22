@@ -46,8 +46,8 @@ namespace REST.Collector.Server.Controllers
         [HttpGet]
         public ActionResult GetLocations([FromHeader] string authorization, [FromQuery] string keyword)
         {
-            //if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
-              //  return Unauthorized("Token invalido");
+            if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
+                return Unauthorized("Token invalido");
             return Ok(locationsCollector.GetLocations(keyword));
         }
     }
