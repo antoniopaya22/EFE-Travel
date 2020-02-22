@@ -22,8 +22,6 @@ namespace REST.Collector.Client.Model
         {
             dynamic itinerary = flight.segments[0];
             this.Price = (double)price.total;
-
-                
             this.DepartureCode = flight.departureName;
             this.ArrivalCode = flight.arrivalName;
             this.DepartureTerminal = itinerary.departure.terminal;

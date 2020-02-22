@@ -20,13 +20,13 @@ namespace REST.Collector.Server.Adapters
         {
             return new Vuelo
             {
-                Origen = amv.DepartureCode, // Llamar a get Locations
-                Destino = amv.ArrivalCode, // Llamar a get Locations
+                Origen = amv.DepartureCode, 
+                Destino = amv.ArrivalCode, 
                 FechaSalida = amv.DepartureTime,
                 FechaLlegada = amv.ArrivalTime,
                 Personas = amv.Persons,
                 Precio = amv.Price,
-                Aerolinea = amv.AirlineCode // Llamar a get Locations
+                Aerolinea = amv.AirlineCode 
             };
         }
 

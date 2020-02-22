@@ -16,6 +16,7 @@ namespace REST.Collector.Client
         string vueloEndPoint = "https://test.api.amadeus.com/v2/shopping/flight-offers";
         string locationsEndPoint = "https://test.api.amadeus.com/v1/reference-data/locations";
         string airlineEndPoint = "https://test.api.amadeus.com/v1/reference-data/airlines";
+        string recommendationsEndPoint = "https://test.api.amadeus.com/v1/shopping/flight-destinations";
         string tokenEndPoint = "https://test.api.amadeus.com/v1/security/oauth2/token";
         private string token { set; get; }
         Dictionary<string, string> locations = new Dictionary<string, string>();
@@ -65,8 +66,8 @@ namespace REST.Collector.Client
                 ida = iti[0];
                 if (ida.segments.Count == 1)
                 {
-                    ida.departureName = GetLocation("A" + ida.segments[0].departure.iataCode.ToString());
-                    ida.arrivalName = GetLocation("A" + ida.segments[0].arrival.iataCode.ToString());
+                    ida.departureName = GetLocationAirport("A" + ida.segments[0].departure.iataCode.ToString());
+                    ida.arrivalName = GetLocationAirport("A" + ida.segments[0].arrival.iataCode.ToString());
                     ida.carrierName = GetAirline(ida.segments[0].carrierCode.ToString());
                     AmadeusVuelo vuelo = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, ida, adults);
                     vuelos.Add(vuelo);
@@ -104,10 +105,10 @@ namespace REST.Collector.Client
                 vuelta = iti[1];
                 if (ida.segments.Count == 1 && vuelta.segments.Count == 1)
                 {
-                    ida.departureName = GetLocation("A" + ida.segments[0].departure.iataCode.ToString());
-                    vuelta.departureName = GetLocation("A" + vuelta.segments[0].departure.iataCode.ToString());
-                    ida.arrivalName = GetLocation("A" + ida.segments[0].arrival.iataCode.ToString());
-                    vuelta.arrivalName = GetLocation("A" + vuelta.segments[0].arrival.iataCode.ToString());
+                    ida.departureName = GetLocationAirport("A" + ida.segments[0].departure.iataCode.ToString());
+                    vuelta.departureName = GetLocationAirport("A" + vuelta.segments[0].departure.iataCode.ToString());
+                    ida.arrivalName = GetLocationAirport("A" + ida.segments[0].arrival.iataCode.ToString());
+                    vuelta.arrivalName = GetLocationAirport("A" + vuelta.segments[0].arrival.iataCode.ToString());
                     AmadeusVuelo vuelo_ida = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, ida, adults);
                     AmadeusVuelo vuelo_vuelta = new AmadeusVuelo(dyn_vuelo.price, dyn_vuelo.numberOfBookableSeats, vuelta, adults);
                     ida_vuelta.Add(vuelo_ida);
@@ -119,7 +120,7 @@ namespace REST.Collector.Client
             return vuelos;
         }
 
-        public string GetLocation(string code)
+        public string GetLocationAirport(string code)
         {
             //this.token = GetToken();
             if (locations.ContainsKey(code))
@@ -139,6 +140,30 @@ namespace REST.Collector.Client
             }
             string name = location.data.name.ToString();
             if(!locations.ContainsKey(code))
+                locations.Add(code, name);
+            return name;
+        }
+
+        public string GetLocationCity(string code)
+        {
+            //this.token = GetToken();
+            if (locations.ContainsKey(code))
+                return locations[code];
+            var client = new RestClient(this.locationsEndPoint);
+            var getRequest = new RestRequest("/{code}", Method.GET);
+            getRequest.RequestFormat = DataFormat.Json;
+            getRequest.AddParameter("code", code, ParameterType.UrlSegment);
+            getRequest.AddHeader("Authorization", $"Bearer {this.token}");
+            var response = client.Execute(getRequest);
+            dynamic location = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            if (location.errors != null)
+            {
+                if (!locations.ContainsKey(code))
+                    locations.Add(code, code);
+                return code;
+            }
+            string name = location.data.address.cityName.ToString();
+            if (!locations.ContainsKey(code))
                 locations.Add(code, name);
             return name;
         }
@@ -204,6 +229,27 @@ namespace REST.Collector.Client
                 hotels.Add(hot);
             }
             return hotels;
+        }
+
+        public List<AmadeusRecommendation> GetRecommendations(string origin)
+        {
+            this.token = GetToken();
+            var client = new RestClient(this.recommendationsEndPoint);
+            var getRequest = new RestRequest(Method.GET);
+            getRequest.RequestFormat = DataFormat.Json;
+            getRequest.AddParameter("origin", origin, ParameterType.QueryString);
+            getRequest.AddHeader("Authorization", $"Bearer {this.token}");
+            var response = client.Execute(getRequest);
+            dynamic dy_recoms = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            List<AmadeusRecommendation> recoms = new List<AmadeusRecommendation>();
+            foreach (dynamic dyn_recom in dy_recoms.data)
+            {
+                dyn_recom.departureName = GetLocationCity("C" + dyn_recom.origin.ToString());
+                dyn_recom.arrivalName = GetLocationCity("C" + dyn_recom.destination.ToString());
+                AmadeusRecommendation rec = new AmadeusRecommendation(dyn_recom);
+                recoms.Add(rec);
+            }
+            return recoms;
         }
     }
 }
