@@ -19,7 +19,7 @@ namespace SOAP.Collector.Server
         public AuthorizationHeader authorization;
         private bool validateToken(string token)
         {
-            var client = new RestClient("http://localhost:5000");
+            var client = new RestClient("http://tokens");
             var getRequest = new RestRequest("/verify-token", Method.GET);
             getRequest.AddHeader("Authorization", token);
             var response = client.Execute(getRequest);

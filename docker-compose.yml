@@ -1,0 +1,55 @@
+---
+
+version: '3.7'
+services:
+  frontend:
+    image: 156.35.95.126:5000/frontend
+    container_name: frontend_1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "3000:80"
+    depends_on:
+      - "tokens-api"
+      - "recommendations-api"
+      - "collector-api"
+      
+  tokens-api:
+    image: 156.35.95.126:5000/tokens-api
+    container_name: tokens-api_1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "5000:80"
+
+  recommendations-api:
+    image: 156.35.95.126:5000/recommendations-api
+    container_name: recommendations-api_1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "8070:80"
+    depends_on:
+      - "tokens-api"
+
+  collector-rest:
+    image: 156.35.95.126:5000/collector-rest    
+    container_name: collector-rest_1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    ports:
+      - "8080:80"
+    depends_on:
+      - "tokens-api"

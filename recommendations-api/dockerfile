@@ -16,7 +16,7 @@ COPY . .
 
 RUN npm install --quiet
 
-EXPOSE 6000
+EXPOSE 8070
 
 # Inicia la aplicación al iniciar al contenedor
 CMD npm run prod
