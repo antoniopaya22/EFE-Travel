@@ -15,8 +15,8 @@ namespace REST.Collector.Client.Model
         public AmadeusRecommendation(dynamic flight)
         {
             this.Price = Convert.ToDouble(flight.price.total);
-            this.Origin = flight.departureName;
-            this.Destination = flight.arrivalName;
+            this.Origin = flight.origin;
+            this.Destination = flight.destination;
             this.DepartureDate = flight.departureDate;
             this.ReturnDate = flight.returnDate;
         }

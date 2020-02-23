@@ -26,10 +26,7 @@ namespace REST.Collector.Client
 
         public AmadeusEndPoint()
         {
-            this.token = GetToken();
-            LocationData locadata  = new LocationData();
-            this.locationList = locadata.locations;
-              
+            this.token = GetToken();    
         }
         private string GetToken()
         {
@@ -49,6 +46,11 @@ namespace REST.Collector.Client
         }
         public List<AmadeusVuelo> GetVuelosIda(string origin, string destination, string departuredate, string adults)
         {
+            if(this.locationList == null)
+            {
+                LocationData locadata = new LocationData();
+                this.locationList = locadata.locations;
+            }
             airlines = new Dictionary<string, string>();
             this.token = GetToken();
             var client = new RestClient(this.vueloEndPoint);
@@ -85,6 +87,11 @@ namespace REST.Collector.Client
 
         public List<List<AmadeusVuelo>> GetVuelosIdaVuelta(string origin, string destination, string departuredate, string returnDate, string adults)
         {
+            if (this.locationList == null)
+            {
+                LocationData locadata = new LocationData();
+                this.locationList = locadata.locations;
+            }
             airlines = new Dictionary<string, string>();
             this.token = GetToken();
             var client = new RestClient(this.vueloEndPoint);
@@ -129,12 +136,22 @@ namespace REST.Collector.Client
 
         public string GetLocationCity(string code)
         {
+            if (this.locationList == null)
+            {
+                LocationData locadata = new LocationData();
+                this.locationList = locadata.locations;
+            }
             string name = this.locationList.Find(i => i.Code == code).City;
             return name;
         }
 
         public string GetAirline(string code)
         {
+            if (this.locationList == null)
+            {
+                LocationData locadata = new LocationData();
+                this.locationList = locadata.locations;
+            }
             if (airlines.ContainsKey(code))
                 return airlines[code];
             var client = new RestClient(this.airlineEndPoint);
@@ -158,11 +175,21 @@ namespace REST.Collector.Client
 
         public List<AmadeusLocation> GetLocations()
         {
+            if (this.locationList == null)
+            {
+                LocationData locadata = new LocationData();
+                this.locationList = locadata.locations;
+            }
             return this.locationList;
         }
 
         public List<AmadeusHotel> GetHotels(string cityCode, string adults)
         {
+            if (this.locationList == null)
+            {
+                LocationData locadata = new LocationData();
+                this.locationList = locadata.locations;
+            }
             this.token = GetToken();
             var client = new RestClient(this.hotelEndPoint);
             var getRequest = new RestRequest(Method.GET);
@@ -198,8 +225,6 @@ namespace REST.Collector.Client
                 return recoms;
             foreach (dynamic dyn_recom in dy_recoms.data)
             {
-                dyn_recom.departureName = GetLocationCity("C" + dyn_recom.origin.ToString());
-                dyn_recom.arrivalName = GetLocationCity("C" + dyn_recom.destination.ToString());
                 AmadeusRecommendation rec = new AmadeusRecommendation(dyn_recom);
                 recoms.Add(rec);
             }
