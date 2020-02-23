@@ -21,16 +21,20 @@ namespace REST.Collector.Server.Adapters
         {
             return new Location
             {
-                CityName = aml.CityName,
-                CityCode = aml.CityCode,
-                CountryName = aml.CountryName,
-                CountryCode = aml.CountryCode
+                Code = aml.Code,
+                City = aml.City,
+                Img = aml.Img
             };
         }
 
-        public List<Location> GetLocations(string keyword)
+        public string GetLocation(string code)
         {
-            List<AmadeusLocation> amadeusLocations = amadeusEndPoint.GetLocations(keyword);
+            return amadeusEndPoint.GetLocationCity(code);
+        }
+
+        public List<Location> GetLocations()
+        {
+            List<AmadeusLocation> amadeusLocations = amadeusEndPoint.GetLocations();
             List<Location> locations = new List<Location>();
             amadeusLocations.ForEach(aml => locations.Add(amadeusLocationToLocation(aml)));
             return locations;

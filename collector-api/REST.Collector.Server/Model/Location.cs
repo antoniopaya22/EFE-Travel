@@ -7,9 +7,8 @@ namespace REST.Collector.Server.Model
 {
     public class Location
     {
-        public string CityName { set; get; }
-        public string CityCode { set; get; }
-        public string CountryName { set; get; }
-        public string CountryCode { set; get; }
+        public string Code { set; get; }
+        public string City { set; get; }
+        public string Img { set; get; }
     }
 }

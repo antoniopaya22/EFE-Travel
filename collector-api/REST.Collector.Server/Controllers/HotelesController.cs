@@ -37,10 +37,8 @@ namespace REST.Collector.Server.Controllers
         public ActionResult Get([FromHeader] string authorization, [FromQuery] string ciudad, 
             [FromQuery] string fechaSalida, [FromQuery] string fechaLlegada, [FromQuery] string personas)
         {
-            
             if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
               return Unauthorized("Token invalido");
-           
             return Ok(hotelesCollector.GetHoteles(ciudad, personas));
         }
     }

@@ -6,17 +6,15 @@ namespace REST.Collector.Client.Model
 {
     public class AmadeusLocation
     {
-        public string CityName { set; get; }
-        public string CityCode { set; get; }
-        public string CountryName { set; get; }
-        public string CountryCode { set; get; }
+        public string Code { set; get; }
+        public string City { set; get; }
+        public string Img { set; get; }
 
-        public AmadeusLocation(dynamic address)
+        public AmadeusLocation(dynamic location)
         {
-            this.CityName = address.cityName;
-            this.CityCode = address.cityCode;
-            this.CountryName = address.countryName;
-            this.CountryCode = address.countryCode;
+            this.Code = location.code;
+            this.City = location.city;
+            this.Img = location.img;
         }
     }
 }

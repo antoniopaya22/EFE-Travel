@@ -8,6 +8,7 @@ namespace REST.Collector.Server.Adapters
 {
     interface ILocationsCollector
     {
-        public List<Location> GetLocations(string keyword);
+        public List<Location> GetLocations();
+        public string GetLocation(string code);
     }
 }

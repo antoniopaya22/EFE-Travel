@@ -33,7 +33,7 @@ namespace REST.Collector.Server.Controllers
             return response.IsSuccessful;
         }
 
-        /*
+        
         [HttpGet("{code}")]
         public ActionResult GetLocation([FromHeader] string authorization, [FromRoute] string code)
         {
@@ -41,14 +41,14 @@ namespace REST.Collector.Server.Controllers
                 return Unauthorized("Token invalido");
             return Ok(locationsCollector.GetLocation(code));
         }
-        */
+        
 
         [HttpGet]
-        public ActionResult GetLocations([FromHeader] string authorization, [FromQuery] string keyword)
+        public ActionResult GetLocations([FromHeader] string authorization)
         {
             if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
                 return Unauthorized("Token invalido");
-            return Ok(locationsCollector.GetLocations(keyword));
+            return Ok(locationsCollector.GetLocations());
         }
     }
 }
