@@ -80,7 +80,8 @@ export default {
   },
   methods: {
     addUser() {
-      this.$axios
+      if(this.password == this.repassword){
+        this.$axios
         .post(process.env.TOKENS_URL + "/api/users", {
           username: this.username,
           lastname: this.lastname,
@@ -93,6 +94,9 @@ export default {
         .catch(e => {
           this.error = e.response.data.Error;
         });
+      } else{
+        this.error = "Las contraseñas no coinciden";
+      }
     }
   }
 };
