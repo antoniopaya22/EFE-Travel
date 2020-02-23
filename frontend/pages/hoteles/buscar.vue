@@ -3,6 +3,7 @@
 
     <!-- FILA RESULTADOS -->
     <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="px-3 pt-3 pb-3" v-show="loading">
+      Cargando Resultados ...
       <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
     </v-sheet>
     <v-row

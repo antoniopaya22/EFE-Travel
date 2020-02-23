@@ -15,9 +15,11 @@
 
     <!-- FILA RESULTADOS -->
     <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="px-3 pt-3 pb-3" v-show="loading">
+      Cargando Resultados ...
       <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
     </v-sheet>
     <div v-if="paso == 1">
+      <v-btn @click="verHoteles()">Ver hoteles</v-btn>
     <v-row
       align="center"
       justify="center"
@@ -29,9 +31,9 @@
       </v-col>
 
     </v-row>
-    <v-btn @click="verHoteles()">Ver hoteles</v-btn>
     </div>
     <div v-else>
+      <v-btn @click="verVuelos()">Ver vuelos</v-btn>
     <v-row
       align="center"
       justify="center"
@@ -42,7 +44,6 @@
         <HotelVuelo :hotel="hotel" />
       </v-col>
     </v-row>
-    <v-btn @click="verVuelos()">Ver vuelos</v-btn>
     </div>
   </v-container>
 </template>

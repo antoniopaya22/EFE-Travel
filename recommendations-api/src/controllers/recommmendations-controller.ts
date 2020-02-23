@@ -1,25 +1,23 @@
 import { Request, Response } from 'express';
 import * as soap from 'soap';
+import { RecommendationsRepository } from '../repository/recommendations-repository';
 
 export class RecommendationsController {
 
-    public async testSOAP(req: Request, res: Response) {
-        var url = 'http://localhost:8060/SoapCollector.asmx?WSDL';
-        var args = {origen: "Oviedo"};
+    public async getRecomendaciones(req: Request, res: Response) {
+        var url = process.env.SOAP_API;
+        var args = {origin: req.params.origen};
         soap.createClientAsync(url).then((client) => {
-            return client.GetVueloAsync(args);
+            return client.GetRecomendacionesAsync(args);
           }).then((result) => {
-            res.status(200).json(result[0]);
+            let response = {
+                principal: RecommendationsRepository.getRecomendacionPrimaria(result[0]),
+                secundaria: RecommendationsRepository.getRecomendacionesSecundarioas(result[0]),
+                terciarias: RecommendationsRepository.getRecomendacionesTerciarias(result[0])
+            };
+            res.status(200).json(response);
         });
     }
 
-    public async getVuelos(req: Request, res: Response) {
-        var url = 'http://localhost:8060/SoapCollector.asmx?WSDL';
-        soap.createClientAsync(url).then((client) => {
-            return client.GetVuelosAsync();
-          }).then((result) => {
-            res.status(200).json(result[0]);
-        });
-    }
 
 }

@@ -1,4 +1,0 @@
-BASE_URL=http://localhost:3000
-REST_URL=http://localhost:8080
-TOKENS_URL=http://localhost:5000
-REC_URL=http://localhost:6000

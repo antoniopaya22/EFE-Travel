@@ -27,11 +27,8 @@ namespace SOAP.Collector.Server
         }
 
         [WebMethod]
-        [SoapHeader("authorization", Direction = SoapHeaderDirection.In)]
         public List<Recommendation> GetRecomendaciones(string origin)
         {
-            if (String.IsNullOrEmpty(authorization.token) || !validateToken(authorization.token))
-                throw new SoapException("Token inválido", SoapException.ClientFaultCode);
             IRecommendationsCollector recCollector = new AmadeusRecommendationAdapter();
             return recCollector.GetRecommendations(origin);
         }
