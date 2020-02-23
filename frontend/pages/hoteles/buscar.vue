@@ -1,8 +1,12 @@
 <template>
   <v-container>
-
     <!-- FILA RESULTADOS -->
-    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="px-3 pt-3 pb-3" v-show="loading">
+    <v-sheet
+      :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+      class="px-3 pt-3 pb-3"
+      v-show="loading"
+    >
+      Cargando Resultados ...
       <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
     </v-sheet>
     <v-row
@@ -15,6 +19,13 @@
         <Hotel :hotel="hotel" />
       </v-col>
     </v-row>
+    <div v-if="!loading && hoteles.length == 0">
+        <br />
+        <v-card>
+          <v-card-title>Sin coincidencias</v-card-title>
+          <v-card-text>Lo sentimos mucho, no hay resultados para estas fechas</v-card-text>
+        </v-card>
+      </div>
   </v-container>
 </template>
 
@@ -32,7 +43,8 @@ const Cookie = process.client ? require("js-cookie") : undefined;
 
 export default {
   layout: "color",
-  inject: ['theme'],
+  inject: ["theme"],
+  middleware: "authenticated",
   components: {
     Hotel
   },

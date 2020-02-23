@@ -55,15 +55,6 @@
 
           <v-list-item>
               <v-list-item-icon>
-                <v-icon>mdi-account-circle</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <nuxt-link to="/perfil"><v-btn text>Perfil</v-btn></nuxt-link>
-              </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item>
-              <v-list-item-icon>
                 <v-icon>mdi-logout-variant</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
