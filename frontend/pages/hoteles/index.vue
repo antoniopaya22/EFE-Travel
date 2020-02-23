@@ -91,6 +91,7 @@ const Cookie = process.client ? require("js-cookie") : undefined;
 
 export default {
   layout: "default",
+  middleware: 'authenticated',
   data: () => ({
     loading: false,
     search: null,

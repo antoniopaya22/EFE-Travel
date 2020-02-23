@@ -106,6 +106,7 @@ const Cookie = process.client ? require("js-cookie") : undefined;
 
 export default {
   layout: "default",
+  middleware: 'authenticated',
   data: () => ({
     searchOrigen: null,
     selectOrigen: null, //Elemento seleccionado origen

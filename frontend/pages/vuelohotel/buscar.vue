@@ -14,36 +14,53 @@
     <br />
 
     <!-- FILA RESULTADOS -->
-    <v-sheet :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`" class="px-3 pt-3 pb-3" v-show="loading">
+    <v-sheet
+      :color="`grey ${theme.isDark ? 'darken-2' : 'lighten-4'}`"
+      class="px-3 pt-3 pb-3"
+      v-show="loading"
+    >
       Cargando Resultados ...
       <v-skeleton-loader class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
     </v-sheet>
     <div v-if="paso == 1">
       <v-btn @click="verHoteles()">Ver hoteles</v-btn>
-    <v-row
-      align="center"
-      justify="center"
-      v-for="(vuelo, index) in vuelos"
-      :key="`vuelo-${index}`"
-    >
-      <v-col cols="12">
-        <VueloHotel :vuelo="vuelo" />
-      </v-col>
-
-    </v-row>
+      <v-row
+        align="center"
+        justify="center"
+        v-for="(vuelo, index) in vuelos"
+        :key="`vuelo-${index}`"
+      >
+        <v-col cols="12">
+          <VueloHotel :vuelo="vuelo" />
+        </v-col>
+      </v-row>
+      <div v-if="!loading && vuelos.length == 0">
+        <br />
+        <v-card>
+          <v-card-title>Sin coincidencias</v-card-title>
+          <v-card-text>Lo sentimos mucho, no hay resultados para estas fechas</v-card-text>
+        </v-card>
+      </div>
     </div>
     <div v-else>
       <v-btn @click="verVuelos()">Ver vuelos</v-btn>
-    <v-row
-      align="center"
-      justify="center"
-      v-for="(hotel, index) in hoteles"
-      :key="`hotel-${index}`"
-    >
-      <v-col cols="12">
-        <HotelVuelo :hotel="hotel" />
-      </v-col>
-    </v-row>
+      <v-row
+        align="center"
+        justify="center"
+        v-for="(hotel, index) in hoteles"
+        :key="`hotel-${index}`"
+      >
+        <v-col cols="12">
+          <HotelVuelo :hotel="hotel" />
+        </v-col>
+      </v-row>
+      <div v-if="!loading && hoteles.length == 0">
+        <br />
+        <v-card>
+          <v-card-title>Sin coincidencias</v-card-title>
+          <v-card-text>Lo sentimos mucho, no hay resultados para estas fechas</v-card-text>
+        </v-card>
+      </div>
     </div>
   </v-container>
 </template>
@@ -63,7 +80,8 @@ const Cookie = process.client ? require("js-cookie") : undefined;
 
 export default {
   layout: "color",
-  inject: ['theme'],
+  inject: ["theme"],
+  middleware: "authenticated",
   components: {
     VueloHotel,
     HotelVuelo
@@ -93,10 +111,10 @@ export default {
     this.loading = false;
   },
   methods: {
-    verHoteles(){
+    verHoteles() {
       this.paso = 2;
     },
-    verVuelos(){
+    verVuelos() {
       this.paso = 1;
     }
   }
