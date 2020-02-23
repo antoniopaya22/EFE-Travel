@@ -8,11 +8,11 @@
     <v-row
       align="center"
       justify="center"
-      v-for="vuelo in vuelos"
-      :key="vuelo.fechaSalida+vuelo.fechaLlegada"
+      v-for="(hotel, index) in hoteles"
+      :key="`hotel-${index}`"
     >
       <v-col cols="12">
-        <Vuelo :vuelo="vuelo" />
+        <Hotel :hotel="hotel" />
       </v-col>
     </v-row>
   </v-container>
@@ -26,7 +26,7 @@
 </style>
 
 <script>
-import Vuelo from "~/components/Vuelo";
+import Hotel from "~/components/Hotel";
 
 const Cookie = process.client ? require("js-cookie") : undefined;
 
@@ -34,27 +34,26 @@ export default {
   layout: "color",
   inject: ['theme'],
   components: {
-    Vuelo
+    Hotel
   },
   data: () => ({
     loading: true,
-    vuelos: []
+    hoteles: []
   }),
   async mounted() {
-    let vuelosData = await this.$axios.get(
-      process.env.REST_URL + `/api/vuelos`,
+    let hotelesData = await this.$axios.get(
+      process.env.REST_URL + `/api/hoteles`,
       {
         headers: { Authorization: this.$store.state.auth },
         params: {
-          origen: this.$route.query.origen,
-          destino: this.$route.query.destino,
-          fechaEntrada: this.$route.query.entrada,
-          fechaSalida: this.$route.query.salida,
+          ciudad: this.$route.query.destino,
+          fechaSalida: this.$route.query.entrada,
+          fechaLlegada: this.$route.query.salida,
           personas: this.$route.query.personas
         }
       }
     );
-    this.vuelos = vuelosData.data;
+    this.hoteles = hotelesData.data;
     this.loading = false;
   },
   methods: {}
