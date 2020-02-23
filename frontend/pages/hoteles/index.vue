@@ -74,10 +74,10 @@
           </v-menu>
         </v-col>
         <v-col cols="12" md="2">
-          <v-select :items="personas" label="Personas" dense outlined></v-select>
+          <v-select :items="personas" label="Personas" dense outlined v-model="selectPersona"></v-select>
         </v-col>
         <v-col cols="12" md="2">
-          <v-btn rounded color="primary" dark large>
+          <v-btn rounded color="primary" dark large @click="buscar">
             <v-icon left>mdi-magnify</v-icon>Buscar hoteles
           </v-btn>
         </v-col>
@@ -95,24 +95,18 @@ export default {
     loading: false,
     search: null,
     select: null, //Elemento seleccionado
-    destinos: ["Madrid", "NewYork", "Osaka", "San Petesburgo"],
+    destinos: ["MAD", "PAR", "Osaka", "San Petesburgo"],
     personas: [1,2,3,4,5,6],
+    selectPersona: 1,
     menuEntrada: false,
     menuSalida: false,
     fechaEntrada: new Date().toISOString().substr(0, 10),
     fechaSalida: new Date().toISOString().substr(0, 10),
-    viajesDestacado: { id: "1", title: "Viaje 1" },
-    viajes2: [
-      { id: "1", title: "Viaje 1" },
-      { id: "2", title: "Viaje 2" },
-    ],
-    viajes3: [
-      { id: "1", title: "Viaje 1" },
-      { id: "2", title: "Viaje 2" },
-      { id: "3", title: "Viaje 3" },
-      { id: "4", title: "Viaje 4" }
-    ]
   }),
-  methods: {}
+  methods: {
+    buscar() {
+      this.$router.push(`/hoteles/buscar?destino=${this.select}&entrada=${this.fechaEntrada}&salida=${this.fechaSalida}&personas=${this.selectPersona}`)
+    }
+  }
 };
 </script>
