@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using REST.Collector.Server.Adapters;
 using REST.Collector.Server.Model;
 using RestSharp;
@@ -45,13 +47,15 @@ namespace REST.Collector.Server.Controllers
             if (String.IsNullOrEmpty(authorization) || !validateToken(authorization))
                 return Unauthorized("Token invalido");
             List<Hotel> hoteles = hotelesCollector.GetHoteles(destino, personas);
-            string str_hoteles = JsonConvert.SerializeObject(hoteles);
+            var serializerSettings = new JsonSerializerSettings();
+            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string str_hoteles = JsonConvert.SerializeObject(hoteles, serializerSettings);
             string str_vuelos = "";
             if (fechaLlegada != null && fechaLlegada != "")
-                str_vuelos = JsonConvert.SerializeObject(vuelosCollector.GetVuelosIdaVuelta(origen, destino, fechaSalida, fechaLlegada, personas));
+                str_vuelos = JsonConvert.SerializeObject(vuelosCollector.GetVuelosIdaVuelta(origen, destino, fechaSalida, fechaLlegada, personas), serializerSettings);
             else
-                str_vuelos = JsonConvert.SerializeObject(vuelosCollector.GetVuelosIda(origen, destino, fechaSalida, personas));
-            string hoteles_vuelos = "{\"hoteles\":"+ str_hoteles +", \"vuelos\":"+str_vuelos+"}"; 
+                str_vuelos = JsonConvert.SerializeObject(vuelosCollector.GetVuelosIda(origen, destino, fechaSalida, personas), serializerSettings);
+            string hoteles_vuelos = "{\"hoteles\":"+ str_hoteles + ", \"vuelos\":"+str_vuelos+"}";
             return Ok(hoteles_vuelos);
         }
     }
