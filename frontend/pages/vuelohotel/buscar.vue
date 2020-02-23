@@ -31,7 +31,7 @@
         :key="`vuelo-${index}`"
       >
         <v-col cols="12">
-          <VueloHotel :vuelo="vuelo" />
+          <Vuelo :vuelo="vuelo" />
         </v-col>
       </v-row>
       <div v-if="!loading && vuelos.length == 0">
@@ -51,7 +51,7 @@
         :key="`hotel-${index}`"
       >
         <v-col cols="12">
-          <HotelVuelo :hotel="hotel" />
+          <Hotel :hotel="hotel" />
         </v-col>
       </v-row>
       <div v-if="!loading && hoteles.length == 0">
@@ -73,8 +73,8 @@
 </style>
 
 <script>
-import VueloHotel from "~/components/VueloHotel";
-import HotelVuelo from "~/components/HotelVuelo";
+import Vuelo from "~/components/Vuelo";
+import Hotel from "~/components/Hotel";
 
 const Cookie = process.client ? require("js-cookie") : undefined;
 
@@ -83,8 +83,8 @@ export default {
   inject: ["theme"],
   middleware: "authenticated",
   components: {
-    VueloHotel,
-    HotelVuelo
+    Vuelo,
+    Hotel
   },
   data: () => ({
     loading: true,

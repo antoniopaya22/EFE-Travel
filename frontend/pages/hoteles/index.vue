@@ -96,7 +96,8 @@ export default {
     loading: false,
     search: null,
     select: null, //Elemento seleccionado
-    destinos: ["MAD", "PAR", "Osaka", "San Petesburgo"],
+    destinos: [],
+    locations: [],
     personas: [1,2,3,4,5,6],
     selectPersona: 1,
     menuEntrada: false,
@@ -104,9 +105,17 @@ export default {
     fechaEntrada: new Date().toISOString().substr(0, 10),
     fechaSalida: new Date().toISOString().substr(0, 10),
   }),
+   async mounted() {
+    let destinos = await this.$axios.get(
+      process.env.BASE_URL + "/locations.json"
+    );
+    this.locations = destinos.data;
+    this.destinos = this.locations.map(x => x.city);
+  },
   methods: {
     buscar() {
-      this.$router.push(`/hoteles/buscar?destino=${this.select}&entrada=${this.fechaEntrada}&salida=${this.fechaSalida}&personas=${this.selectPersona}`)
+      let destino = this.locations.find(x => x.city == this.select);
+      this.$router.push(`/hoteles/buscar?destino=${destino.code}&entrada=${this.fechaEntrada}&salida=${this.fechaSalida}&personas=${this.selectPersona}`)
     }
   }
 };

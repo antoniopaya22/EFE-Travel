@@ -1,6 +1,6 @@
 <template>
   <v-container>
-     <v-card class="mx-auto text-center" color="#363636">
+    <v-card class="mx-auto text-center" color="#363636">
       <v-row align="center" justify="center">
         <v-col cols="12" md="5">
           <v-spacer></v-spacer>
@@ -106,23 +106,35 @@ const Cookie = process.client ? require("js-cookie") : undefined;
 
 export default {
   layout: "default",
-  middleware: 'authenticated',
+  middleware: "authenticated",
   data: () => ({
     searchOrigen: null,
     selectOrigen: null, //Elemento seleccionado origen
     searchDestino: null,
     selectDestino: null, //Elemento seleccionado destino
-    destinos: ["MAD", "PAR", "Osaka", "San Petesburgo"],
-    personas: [1,2,3,4,5,6],
+    destinos: [],
+    locations: [],
+    personas: [1, 2, 3, 4, 5, 6],
     selectPersona: 1,
     menuEntrada: false,
     menuSalida: false,
     fechaEntrada: new Date().toISOString().substr(0, 10),
-    fechaSalida: new Date().toISOString().substr(0, 10),
+    fechaSalida: new Date().toISOString().substr(0, 10)
   }),
+  async mounted() {
+    let destinos = await this.$axios.get(
+      process.env.BASE_URL + "/locations.json"
+    );
+    this.locations = destinos.data;
+    this.destinos = this.locations.map(x => x.city);
+  },
   methods: {
-     buscar() {
-      this.$router.push(`/vuelohotel/buscar?origen=${this.selectOrigen}&destino=${this.selectDestino}&entrada=${this.fechaEntrada}&salida=${this.fechaSalida}&personas=${this.selectPersona}`)
+    buscar() {
+      let origen = this.locations.find(x => x.city == this.selectOrigen);
+      let destino = this.locations.find(x => x.city == this.selectDestino);
+      this.$router.push(
+        `/vuelohotel/buscar?origen=${origen.code}&destino=${destino.code}&entrada=${this.fechaEntrada}&salida=${this.fechaSalida}&personas=${this.selectPersona}`
+      );
     }
   }
 };
