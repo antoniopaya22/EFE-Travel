@@ -2,11 +2,10 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-ENV ASPNETCORE_URLS=http://+:8080
 COPY ["REST.Collector.Server/REST.Collector.Server.csproj", "REST.Collector.Server/"]
 COPY ["REST.Collector.Client/REST.Collector.Client.csproj", "REST.Collector.Client/"]
 RUN dotnet restore "REST.Collector.Server/REST.Collector.Server.csproj"
