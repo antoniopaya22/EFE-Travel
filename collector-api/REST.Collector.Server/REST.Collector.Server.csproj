@@ -6,11 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="locations.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="locations.json" />
+    <Content Include="locations.json" />
   </ItemGroup>
 
   <ItemGroup>
