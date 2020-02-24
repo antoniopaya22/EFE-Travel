@@ -1,4 +1,4 @@
-FROM node
+FROM node:lts-alpine
 
 # Crear directorio de trabajo
 RUN mkdir -p /opt/app
