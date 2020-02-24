@@ -4,7 +4,7 @@ import * as rp from 'request-promise';
 export class Auth {
 
     public isAuth(req: Request, res: Response, next) {
-        const tokensapi = process.env.TOKENS_API || 'http://localhost:5000';
+        const tokensapi = process.env.TOKENS_API || 'http://156.35.95.126:5000';
         rp(
             {
                 uri: tokensapi + '/verify-token',
