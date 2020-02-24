@@ -19,4 +19,4 @@ RUN npm install --quiet
 EXPOSE 8070
 
 # Inicia la aplicación al iniciar al contenedor
-CMD npm run prod
+CMD npm run dev
