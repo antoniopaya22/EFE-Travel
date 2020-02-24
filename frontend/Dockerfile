@@ -1,13 +1,17 @@
-FROM node:12.16.0-alpine
+FROM node
 
 # Crear directorio de trabajo
 RUN mkdir -p /opt/app
 
 WORKDIR /opt/app
 
-RUN npm install
+RUN npm install -g typescript ts-node
 
-ENV HOST 0.0.0.0
+# Copia la Aplicación
+COPY . .
+
+RUN npm install --quiet
+
 EXPOSE 3000
 
 # Start
