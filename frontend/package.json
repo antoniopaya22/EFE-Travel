@@ -23,7 +23,7 @@
     "devDependencies": {
         "@nuxtjs/vuetify": "^1.0.0",
         "@vue/test-utils": "^1.0.0-beta.27",
-        "ava": "^0.19.1",
+        "ava": "^5.1.0",
         "jsdom": "^11.0.0"
     }
 }
